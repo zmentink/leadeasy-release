@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="cf250cb4-aa3b-41f0-89cf-57da699c36aa" created="2.7.0" activeEnvironment="Default environment" name="Project 1" resourceRoot="${projectDir}" updated="2.7.0 2019-05-30T13:25:24Z" encryptionMode="Not encrypted" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:RestService" id="18972f12-e379-48e3-bd1f-b1c7cac60580" wadlVersion="http://wadl.dev.java.net/2009/02" name="REST Service 1" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache/>
+    <con:endpoints/>
+    <con:resource name="Test1" path="/test1" id="8178eb00-5067-4abe-b310-b3b6a3b0527e">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="Test1" id="8a24eeb3-5010-4a59-af83-38766ebf6602" method="GET">
+        <con:settings/>
+        <con:parameters/>
+        <con:request name="Request 1" id="235dace2-2ace-44e3-bb33-6dc653c40e40" mediaType="application/json">
+          <con:settings/>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:parameters/>
+        </con:request>
+      </con:method>
+    </con:resource>
+    <con:resource name="/test2" path="/test2" id="35976569-507e-40e9-b502-1d855f026ff9">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="GET" id="9a196c63-46fc-4c71-b9a6-7e4a31444acd" method="GET">
+        <con:settings/>
+        <con:parameters/>
+        <con:request name="GET" id="3b2ea0e8-dbd1-4195-a518-63700816529c" mediaType="application/json">
+          <con:settings/>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:parameters/>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:restMockService id="20cef0df-8203-4400-b809-032ca970f039" port="8088" path="/services" host="localhost" name="SalesForce Leads REST Virtual Service">
+    <con:settings/>
+    <con:properties>
+      <con:property>
+        <con:name>guid</con:name>
+        <con:value>34bbf23f-c6a9-4355-8de5-8ee846568cda</con:value>
+      </con:property>
+    </con:properties>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:headerValidator type="NONE"/>
+    <con:restMockAction name="/status" method="GET" resourcePath="/status" id="4cca2654-5a9b-4e7d-afde-82af096c43bb">
+      <con:settings/>
+      <con:defaultResponse xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:parameterDispatcherRuleContainer/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="b33a6d80-9830-4854-a55e-f993b9080055" httpResponseStatus="202" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" mediaType="application/json" dataSource="">
+        <con:settings/>
+        <con:responseContent>{
+	"status": "ok"
+}</con:responseContent>
+      </con:response>
+    </con:restMockAction>
+    <con:restMockAction name="/data/v20.0/sobjects/Lead/" method="POST" resourcePath="/data/v20.0/sobjects/Lead/" id="b8e7e0b4-a3ee-4884-b3c2-814f27d97cfc">
+      <con:settings/>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="3ea69804-0b6a-4e16-84f3-5716bee16768" httpResponseStatus="201" dataSource="" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" mediaType="application/json">
+        <con:settings/>
+        <con:script>requestContext.mockService.setPropertyValue("guid", UUID.randomUUID().toString())</con:script>
+        <con:responseContent>{
+	"id": "${#MockService#guid}"
+}</con:responseContent>
+      </con:response>
+    </con:restMockAction>
+    <con:restMockAction name="/oauth2/token" method="POST" resourcePath="/oauth2/token" id="d3734e34-a882-428f-8c95-7caae67d2204">
+      <con:settings/>
+      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+      <con:dispatchConfig/>
+      <con:dispatchXPath/>
+      <con:routeScript/>
+      <con:response name="Response 1" id="a65a8ccc-4d25-4cf2-a27f-76bb567be463" httpResponseStatus="200" compressedBodyContent="aced00057372002f636f6d2e657669776172652e736f617075692e696d706c2e737570706f72742e436f6d7072657373656456616c7565000b8b02c748eeab0200025a000a636f6d707265737365645b0004646174617400025b4278700070" mediaType="application/json" dataSource="">
+        <con:settings/>
+        <con:script/>
+        <con:responseContent>{
+	"access_token": "some_token"
+}</con:responseContent>
+      </con:response>
+    </con:restMockAction>
+  </con:restMockService>
+  <con:properties/>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:xmlTemplates/>
+    <con:parameters/>
+  </con:reporting>
+  <con:eventHandlers type="RequestFilter.filterRequest" name="RequestFilter.filterRequest">
+    <con:script>// Sample event script to add custom HTTP header to all outgoing REST, SOAP and HTTP(S) calls
+// This code is often used for adding custom authentication to SoapUI Pro tests
+
+// If hardcoding the token, uncomment and change line 5
+// def token = '4567'
+
+// If your token is parameterized in Project level custom property, uncomment line 8
+// def token = request.parent.testCase.testSuite.project.getProperty('auth_token').getValue()
+
+// To modify all outgoing calls, remove comments from lines 11 to 16
+// def headers = request.requestHeaders
+// if (headers.containsKey('auth_token2') == false) {
+//   headers.put('auth_token2', token)
+//   request.requestHeaders = headers
+// }</con:script>
+  </con:eventHandlers>
+  <con:eventHandlers type="TestRunListener.afterStep" name="TestRunListener.afterStep">
+    <con:script>// Save all test step results into files
+// Change the directory path in line 5 to a location where you want to store details
+// then uncomment lines 5 to 10
+
+// filePath = 'C:\\tempOutputDirectory\\'
+// fos = new FileOutputStream(filePath + testStepResult.testStep.label + '.txt', true)
+// pw = new PrintWriter(fos)
+// testStepResult.writeTo(pw)
+// pw.close()
+// fos.close()</con:script>
+  </con:eventHandlers>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>
