@@ -118,13 +118,13 @@ def b():
 def a():
     global id
     body = request.get_data()
-    print 'body: %s' % body
+    print('body: %s' % body)
     rv = json.loads(body)
     id += 1
     rv['id'] = id
     #if 'salesforce' in salesforce_login_url:
     url = salesforce_login_url + salesforce_login_resource
-    print 'url: %s' % url
+    print('url: %s' % url)
     r = requests.post(url, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data='grant_type=password&client_id=%s&client_secret=%s&username=%s&password=%s' % (client_id, client_secret, escape(salesforce_username), escape(salesforce_password)))
     if r.status_code >= 400:
         raise Exception('Error: %d %s' % (r.status_code, r.text))
@@ -136,7 +136,7 @@ def a():
 
     #url = salesforce_instance_url + salesforce_lead_resource
     url = salesforce_login_url + salesforce_lead_resource
-    print 'url: %s' % url
+    print('url: %s' % url)
     r = requests.post(url, data='{"FirstName":"%s","LastName":"%s","Company":"%s"}' % (rv['firstname'], rv['lastname'], rv['company']), headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token})
     if r.status_code >= 400:
         raise Exception('Error: %d %s' % (r.status_code, r.text))
