@@ -21,7 +21,7 @@ gui='''<html><head>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head><body>
 <font face="arial">
-<h1>SalesForce Lead Entry Form</h1>
+<h1>Leadeasy: Lead Entry Form</h1>
 Salesforce backend: ''' + (salesforce_login_url if 'salesforce' in salesforce_login_url else 'virtual service ' + salesforce_login_url) + '''
 <h2>Leads</h2>
 <div id="log">
