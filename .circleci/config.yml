@@ -1,0 +1,15 @@
+version: 2.1
+
+orbs:
+  colony: ddovbii/colony@dev:alpha
+  aws-s3: circleci/aws-s3@1.0.11
+jobs:
+  build: 
+    docker:
+      - image: circleci/ruby:2.4.1
+    working_directory: ~/SmartBear-ServiceVirtualization
+    steps:
+      - checkout
+      - run:
+          name: Archive app
+          command: ls
