@@ -36,7 +36,7 @@ jobs:
     steps:
       - colony/start-sandbox:
           sandbox-name: "test-sandbox"
-          blueprint: "promotions-manager-all-aws"
+          blueprint: "leadeasy-application"
       - run:
           # TODO: Write more 'interesting' test
           name: Check availability
