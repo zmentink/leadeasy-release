@@ -12,4 +12,4 @@ jobs:
       - checkout
       - run:
           name: Archive app
-          command: ls
+          command: tar -zcf leads-webapp.latest.tar.gz -C sample_app/ .
