@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  colony: ddovbii/colony@dev:alpha
+  colony:  ddovbii/colony@dev:alpha
   aws-s3: circleci/aws-s3@1.0.11
 jobs:
   build: 
@@ -12,4 +12,34 @@ jobs:
       - checkout
       - run:
           name: Archive app
-          command: tar -zcf leads-webapp.latest.tar.gz -C sample_app/ .
+          command: |
+            mkdir -p workspace
+            tar -zcf workspace/leads-webapp.latest.tar.gz -C sample_app/ .
+            ls
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - leads-webapp.latest.tar.gz
+
+  publish:
+    docker:
+      - image: circleci/python:2.7
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - aws-s3/copy:
+          from: /tmp/workspace/leads-webapp.latest.tar.gz
+          to: "s3://leads-webapp-artifacts/latest/"
+  test:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - colony/start-sandbox:
+          sandbox-name: "test-sandbox"
+          blueprint: "promotions-manager-all-aws"
+      - run:
+          # TODO: Write more 'interesting' test
+          name: Check availability
+          command: curl -sSf ${SB_ENDPOINT} > /dev/null
+      - colony/end-sandbox
+
