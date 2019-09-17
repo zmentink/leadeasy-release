@@ -42,4 +42,13 @@ jobs:
           name: Check availability
           command: curl -sSf ${SB_ENDPOINT} > /dev/null
       - colony/end-sandbox
-
+workflows:
+  leadeasy:
+    jobs:
+      - build
+      - publish:
+          requires:
+            - build
+      - test:
+          requires:
+            - publish
