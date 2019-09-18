@@ -43,21 +43,15 @@ jobs:
           command: |
             SB_ENDPOINT="SB_${SANDBOX_ID}_SHORTCUT_1"
             echo "Checking ${!SB_ENDPOINT}"
-            PAYLOAD=(
-              "{
-                  'firstname':'Lead',
-                  'lastname':'Easy',
-                  'company':'Quali',
-                  'phone':'123456789'
-              }"
-            )
-            for i in {1..5}
+            PAYLOAD='{"firstname":"Lead","lastname":"Easy","company":"Quali","phone":"123456789"}'
+            for i in {1..10}
             do
-              curl --silent -X POST ${!SB_ENDPOINT}/api/leads
-              sleep 10
+              curl --silent -X POST ${!SB_ENDPOINT}/api/leads -d $PAYLOAD \
+                   -H "accept:application/json" -H "Content-Type:application/x-www-form-urlencoded" 
+              sleep 5
             done
             NUM=`curl --silent -X GET ${!SB_ENDPOINT} | grep -o Easy | wc -l` || exit 1
-            [[ NUM == 5 ]]
+            [[ NUM > 3 ]]
       - colony/end-sandbox:
           sandbox-id: SANDBOX_ID
 workflows:
