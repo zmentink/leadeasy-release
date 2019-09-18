@@ -51,7 +51,7 @@ jobs:
               sleep 5
             done
             NUM=`curl --silent -X GET ${!SB_ENDPOINT}/api/leads | grep -o Easy | wc -l` || exit 1
-            [[ NUM > 2 ]]
+            [[ $NUM > 2 ]]
       - colony/end-sandbox:
           sandbox-id: SANDBOX_ID
 workflows:
