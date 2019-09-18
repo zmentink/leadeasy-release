@@ -47,11 +47,11 @@ jobs:
             for i in {1..10}
             do
               curl --silent -X POST ${!SB_ENDPOINT}/api/leads -d $PAYLOAD \
-                   -H "accept:application/json" -H "Content-Type:application/x-www-form-urlencoded" 
+                   -H "accept:application/json" -H "Content-Type:application/x-www-form-urlencoded" > /dev/null
               sleep 5
             done
-            NUM=`curl --silent -X GET ${!SB_ENDPOINT} | grep -o Easy | wc -l` || exit 1
-            [[ NUM > 3 ]]
+            NUM=`curl --silent -X GET ${!SB_ENDPOINT}/api/leads | grep -o Easy | wc -l` || exit 1
+            [[ NUM > 2 ]]
       - colony/end-sandbox:
           sandbox-id: SANDBOX_ID
 workflows:
