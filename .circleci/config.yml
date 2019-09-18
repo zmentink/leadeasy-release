@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  colony:  ddovbii/colony@dev:alpha
+  colony:  ddovbii/colony@dev:beta
   aws-s3: circleci/aws-s3@1.0.11
 jobs:
   build: 
@@ -15,7 +15,6 @@ jobs:
           command: |
             mkdir -p workspace
             tar -zcf workspace/leads-webapp.latest.tar.gz -C sample_app/ .
-            ls
       - persist_to_workspace:
           root: workspace
           paths:
@@ -37,11 +36,15 @@ jobs:
       - colony/start-sandbox:
           sandbox-name: "test-sandbox"
           blueprint: "leadeasy-application"
+          inputs: "{'AWS_INSTANCE_TYPE': 'm5.large'}"
+          artifacts: "{'leadeasy-frontend':'latest/leads-webapp.latest.tar.gz','salesforce-virt':'sf-virtual-service/leads-virt.war'}"
       - run:
-          # TODO: Write more 'interesting' test
           name: Check availability
-          command: curl -sSf ${SB_ENDPOINT} > /dev/null
-      - colony/end-sandbox
+          command: |
+            SB_ENDPOINT="SB_${SANDBOX_ID}_SHORTCUT_1"
+            curl -sSf ${!SB_ENDPOINT} > /dev/null
+      - colony/end-sandbox:
+          sandbox-id: SANDBOX_ID
 workflows:
   leadeasy:
     jobs:
