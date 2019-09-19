@@ -39,7 +39,7 @@ jobs:
           inputs: "{'AWS_INSTANCE_TYPE': 'm5.large'}"
           artifacts: "{'leadeasy-frontend':'latest/leads-webapp.latest.tar.gz','salesforce-virt':'sf-virtual-service/leads-virt.war'}"
       - run:
-          name: Check availability
+          name: Functional test
           command: |
             SB_ENDPOINT="SB_${SANDBOX_ID}_SHORTCUT_1"
             echo "Checking ${!SB_ENDPOINT}"
