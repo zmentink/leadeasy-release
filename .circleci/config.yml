@@ -29,38 +29,19 @@ jobs:
       - aws-s3/copy:
           from: /tmp/workspace/leads-webapp.latest.tar.gz
           to: "s3://leads-webapp-artifacts/latest/"
-  test:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - colony/start-sandbox:
-          sandbox-name: "test-sandbox"
-          blueprint: "leadeasy-application"
-          inputs: "{'AWS_INSTANCE_TYPE': 'm5.large'}"
-          artifacts: "{'leadeasy-frontend':'latest/leads-webapp.latest.tar.gz','salesforce-virt':'sf-virtual-service/leads-virt.war'}"
-      - run:
-          name: Functional test
-          command: |
-            SB_ENDPOINT="SB_${SANDBOX_ID}_SHORTCUT_1"
-            echo "Checking ${!SB_ENDPOINT}"
-            PAYLOAD='{"firstname":"Lead","lastname":"Easy","company":"Quali","phone":"123456789"}'
-            for i in {1..10}
-            do
-              curl --silent -X POST ${!SB_ENDPOINT}/api/leads -d $PAYLOAD \
-                   -H "accept:application/json" -H "Content-Type:application/x-www-form-urlencoded" > /dev/null
-              sleep 5
-            done
-            NUM=`curl --silent -X GET ${!SB_ENDPOINT}/api/leads | grep -o Easy | wc -l` || exit 1
-            [[ $NUM > 2 ]]
-      - colony/end-sandbox:
-          sandbox-id: SANDBOX_ID
 workflows:
   leadeasy:
     jobs:
       - build
       - publish:
           requires:
-            - build
-      - test:
+            - build 
+      - colony/sandbox:
+          sandbox-name: "test-sandbox"
+          blueprint: "leadeasy-application"
+          inputs: "{'AWS_INSTANCE_TYPE': 'm5.large'}"
+          artifacts: "{'leadeasy-frontend':'latest/leads-webapp.latest.tar.gz','salesforce-virt':'sf-virtual-service/leads-virt.war'}"
+          steps:
+            - run: echo "${SANDBOX_DETAILS}"
           requires:
             - publish
