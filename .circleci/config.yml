@@ -41,6 +41,8 @@ workflows:
           blueprint: "leadeasy-application"
           inputs: "{'AWS_INSTANCE_TYPE': 'm5.large'}"
           artifacts: "{'leadeasy-frontend':'latest/leads-webapp.latest.tar.gz','salesforce-virt':'sf-virtual-service/leads-virt.war'}"
+          image: "circleci/ruby"
+          tag: "2.4.1"
           steps:
             - run: echo "${SANDBOX_DETAILS}"
           requires:
